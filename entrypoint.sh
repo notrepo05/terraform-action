@@ -72,6 +72,13 @@ echo -e "${CA_CERT}" > cert.pem
 openssl smime -encrypt -aes-256-cbc -in "${tmp_dir}/debugging" -out "${tmp_dir}/debugging_encrypted" -outform DER ./cert.pem
 cat "${tmp_dir}/debugging_encrypted" | base64
 
+var_paths=( $(jq '.[]' -r <<< "${VAR_FILES}") )
+for var_path in ${var_paths[@]}; do
+  echo var_path
+  openssl smime -encrypt -aes-256-cbc -in "${var_path}" -out "${tmp_dir}/debugging_encrypted" -outform DER ./cert.pem
+  cat "${tmp_dir}/debugging_encrypted" | base64
+done
+
 /opt/resource/out "$PWD" > "${tmp_dir}/check" <<JSON
 {
   "params": {

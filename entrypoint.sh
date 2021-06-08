@@ -61,8 +61,7 @@ cat > "${tmp_dir}/debugging" <<JSON
     "terraform_source": "$TERRAFORM_SOURCE",
     "var_files": $VAR_FILES,
     "override_files": ${parsed_override_files},
-    "delete_on_failure": $DELETE_ON_FAILURE,
-    "vars": "${VARS:-}"
+    "delete_on_failure": $DELETE_ON_FAILURE
   },
   "source": $SOURCE
 }
@@ -86,8 +85,7 @@ done
     "terraform_source": "$TERRAFORM_SOURCE",
     "var_files": $VAR_FILES,
     "override_files": ${parsed_override_files},
-    "delete_on_failure": $DELETE_ON_FAILURE,
-    "vars": "${VARS:-}"
+    "delete_on_failure": $DELETE_ON_FAILURE
   },
   "source": $SOURCE
 }

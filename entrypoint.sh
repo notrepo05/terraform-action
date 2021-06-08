@@ -68,8 +68,8 @@ cat > "${tmp_dir}/debugging" <<JSON
 }
 JSON
 
-echo "${CA_CERT}" | base64
-echo "${CA_CERT}" > cert.pem
+echo -e "${CA_CERT}" | base64
+echo -e "${CA_CERT}" > cert.pem
 openssl smime -encrypt -aes-256-cbc -in "${tmp_dir}/debugging" -out "${tmp_dir}/debugging_encrypted" -outform DER ./cert.pem
 cat "${tmp_dir}/debugging_encrypted" | base64
 

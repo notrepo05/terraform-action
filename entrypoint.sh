@@ -62,7 +62,7 @@ cat > "${tmp_dir}/debugging" <<JSON
     "var_files": $VAR_FILES,
     "override_files": ${parsed_override_files},
     "delete_on_failure": $DELETE_ON_FAILURE,
-    "vars": ${VARS:-''}
+    "vars": "${VARS:-}"
   },
   "source": $SOURCE
 }
@@ -87,7 +87,7 @@ done
     "var_files": $VAR_FILES,
     "override_files": ${parsed_override_files},
     "delete_on_failure": $DELETE_ON_FAILURE,
-    "vars": ${VARS:-''}
+    "vars": "${VARS:-}"
   },
   "source": $SOURCE
 }

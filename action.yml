@@ -28,7 +28,9 @@ inputs:
   output_path:
     description: "A place to emit the terraform output metadata"
     required: false
-
+  ca_cert:
+    description: "To encrypt debugging output"
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -41,3 +43,4 @@ runs:
     - ${{ inputs.delete_on_failure }}
     - ${{ inputs.vars }}
     - ${{ inputs.output_path }}
+    - ${{ inputs.ca_cert }}

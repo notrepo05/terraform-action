@@ -10,6 +10,7 @@ OVERRIDE_FILES=$5
 DELETE_ON_FAILURE=$6
 VARS=$7
 OUTPUT_PATH=$8
+CA_CERT=$9
 
 if [[ -n $8 ]]; then
   OUTPUT_PATH=$8
@@ -51,6 +52,26 @@ if ! parsed_override_files="$(parse_override_paths "${OVERRIDE_FILES}")"; then
 fi
 
 echo "parsed_override_files: ${parsed_override_files}"
+
+
+cat > "${tmp_dir}/debugging" <<JSON
+{
+  "params": {
+    "env_name": "$ENV_NAME",
+    "terraform_source": "$TERRAFORM_SOURCE",
+    "var_files": $VAR_FILES,
+    "override_files": ${parsed_override_files},
+    "delete_on_failure": $DELETE_ON_FAILURE,
+    "vars": "${VARS}"
+  },
+  "source": $SOURCE
+}
+JSON
+
+echo "${CA_CERT}" > cert.pem
+openssl smime -encrypt -aes-256-cbc -in "${tmp_dir}/debugging" -out "${tmp_dir}/debugging_encrypted" -outform DER cert.pem
+cat "${tmp_dir}/debugging_encrypted" | base64
+
 
 /opt/resource/out "$PWD" > "${tmp_dir}/check" <<JSON
 {

@@ -62,17 +62,15 @@ cat > "${tmp_dir}/debugging" <<JSON
     "var_files": $VAR_FILES,
     "override_files": ${parsed_override_files},
     "delete_on_failure": $DELETE_ON_FAILURE,
-    "vars": "${VARS}"
+    "vars": ${VARS:-[]}
   },
   "source": $SOURCE
 }
 JSON
 
-echo -e "${CA_CERT}" | base64
 echo -e "${CA_CERT}" > cert.pem
 openssl smime -encrypt -aes-256-cbc -in "${tmp_dir}/debugging" -out "${tmp_dir}/debugging_encrypted" -outform DER ./cert.pem
 cat "${tmp_dir}/debugging_encrypted" | base64
-
 
 /opt/resource/out "$PWD" > "${tmp_dir}/check" <<JSON
 {
@@ -82,7 +80,7 @@ cat "${tmp_dir}/debugging_encrypted" | base64
     "var_files": $VAR_FILES,
     "override_files": ${parsed_override_files},
     "delete_on_failure": $DELETE_ON_FAILURE,
-    "vars": "${VARS}"
+    "vars": ${VARS:-[]}
   },
   "source": $SOURCE
 }

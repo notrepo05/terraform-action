@@ -1,4 +1,4 @@
-FROM ljfranklin/terraform-resource:0.11.14
+FROM harbor-repo.vmware.com/dockerhub-proxy-cache/ljfranklin/terraform-resource:0.11.14
 
 RUN apk update && \
     apk add \

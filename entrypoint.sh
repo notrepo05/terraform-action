@@ -9,6 +9,7 @@ VAR_FILES=$4
 OVERRIDE_FILES=$5
 DELETE_ON_FAILURE=$6
 OUTPUT_PATH=$7
+ACTION=$8
 
 if [[ -n $7 ]]; then
   OUTPUT_PATH=$7
@@ -58,7 +59,8 @@ cat > "${tmp_dir}/out.input" <<JSON
     "terraform_source": "$TERRAFORM_SOURCE",
     "var_files": $VAR_FILES,
     "override_files": ${parsed_override_files},
-    "delete_on_failure": $DELETE_ON_FAILURE
+    "delete_on_failure": $DELETE_ON_FAILURE,
+    "action": $ACTION
   },
   "source": $SOURCE
 }
@@ -71,7 +73,8 @@ JSON
     "terraform_source": "$TERRAFORM_SOURCE",
     "var_files": $VAR_FILES,
     "override_files": ${parsed_override_files},
-    "delete_on_failure": $DELETE_ON_FAILURE
+    "delete_on_failure": $DELETE_ON_FAILURE,
+    "action": "$ACTION"
   },
   "source": $SOURCE
 }
